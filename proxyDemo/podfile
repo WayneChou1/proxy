@@ -1,0 +1,10 @@
+platform :ios,'10.0'
+
+target 'proxyDemo' do
+
+pod 'CocoaAsyncSocket'
+pod 'Alamofire'
+
+end
+
+use_frameworks!
