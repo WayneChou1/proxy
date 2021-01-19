@@ -23,7 +23,11 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate {
 
     func openSocket() {
         self.socket.delegate = self
-        socket.readData(to: Utils.HTTPData.DoubleCRLF, withTimeout: TimeInterval(MAXFLOAT), tag: 1)
+        socket.readData(to: Utils.HTTPData.DoubleCRLF, withTimeout: -1, tag: 1)
+    }
+
+    func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
+        print("error descrtion:\(String(describing: err?.localizedDescription))")
     }
 
     func socket(_ sock: GCDAsyncSocket, didRead data: Data, withTag tag: Int) {

@@ -36,7 +36,7 @@ class ProxyServer: NSObject,GCDAsyncSocketDelegate {
     }
 
     func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
-        print("\(err?.localizedDescription)")
+        print("err:\(err?.localizedDescription)")
     }
 
     func socket(_ sock: GCDAsyncSocket, didRead data: Data, withTag tag: Int) {
@@ -48,10 +48,10 @@ class ProxyServer: NSObject,GCDAsyncSocketDelegate {
     }
 
     func socket(_ sock: GCDAsyncSocket, didAcceptNewSocket newSocket: GCDAsyncSocket) {
-        print("url:\(String(describing: sock.localHost))")
-//        proxySocket = HTTPProxyGCDAsyncSocket.init(socket: sock)
-//        proxySocket.openSocket()
+        print("url:\(String(describing: newSocket.localHost))")
+        proxySocket = HTTPProxyGCDAsyncSocket.init(socket: newSocket)
+        proxySocket.openSocket()
 //        sock.readDataTo(data: "\r\n\r\n".data(using: String.Encoding.utf8)!)
-        sock.readData(to: "\r\n\r\n".data(using: String.Encoding.utf8)!, withTimeout: -1, tag: 1)
+//        newSocket.readData(to: "\r\n\r\n".data(using: String.Encoding.utf8)!, withTimeout: -1, tag: 1)
     }
 }
