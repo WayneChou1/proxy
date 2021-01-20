@@ -73,6 +73,39 @@ struct Address: CustomStringConvertible, Comparable {
     public let family: Family
     public let address: ip
 
+    public init(fromInAddr addr: in_addr) {
+        family = .IPv4
+        address = .IPv4(addr)
+        description = ""
+    }
+
+    public init(fromIn6Addr addr6: in6_addr) {
+        family = .IPv6
+        address = .IPv6(addr6)
+        description = ""
+    }
+
+    public init?(fromString string: String) {
+        var addr = in_addr()
+
+        if (string.withCString {
+            return inet_pton(AF_INET, $0, &addr)
+        }) == 1 {
+            self.init(fromInAddr: addr)
+            presentation = string
+        } else {
+            var addr6 = in6_addr()
+            if (string.withCString {
+                return inet_pton(AF_INET6, $0, &addr6)
+            }) == 1 {
+                self.init(fromIn6Addr: addr6)
+                presentation = string
+            } else {
+                return nil
+            }
+        }
+    }
+
     public lazy var presentation: String = {
         switch self.address {
         case .IPv4(var addr):

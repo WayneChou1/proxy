@@ -1,20 +1,26 @@
 PODS:
   - Alamofire (5.4.0)
   - CocoaAsyncSocket (7.6.5)
+  - CocoaLumberjack/Core (3.7.0)
+  - CocoaLumberjack/Swift (3.7.0):
+    - CocoaLumberjack/Core
 
 DEPENDENCIES:
   - Alamofire
   - CocoaAsyncSocket
+  - CocoaLumberjack/Swift
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - CocoaAsyncSocket
+    - CocoaLumberjack
 
 SPEC CHECKSUMS:
   Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
+  CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
 
-PODFILE CHECKSUM: abed48d5e578f1b8147ba4b002eafcd2e99f2333
+PODFILE CHECKSUM: 63dad0214aadefe49fea47d0e444678ddbb28c81
 
 COCOAPODS: 1.10.0

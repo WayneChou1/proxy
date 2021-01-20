@@ -4,6 +4,7 @@ target 'proxyDemo' do
 
 pod 'CocoaAsyncSocket'
 pod 'Alamofire'
+pod 'CocoaLumberjack/Swift'
 
 end
 

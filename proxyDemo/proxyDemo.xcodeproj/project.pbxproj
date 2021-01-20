@@ -8,6 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		47A0542AFFDED941037861FE /* Pods_proxyDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4BDAE22DCDF7C724A8FF786 /* Pods_proxyDemo.framework */; };
+		98C2D52F25B7C19800A1BD3E /* HTTPStreamScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D52E25B7C19800A1BD3E /* HTTPStreamScanner.swift */; };
+		98C2D53525B7C2AF00A1BD3E /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D53425B7C2AF00A1BD3E /* HTTPHeader.swift */; };
+		98C2D53D25B7C36600A1BD3E /* HTTPURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D53C25B7C36600A1BD3E /* HTTPURL.swift */; };
+		98C2D54225B7C99E00A1BD3E /* Opt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D54125B7C99E00A1BD3E /* Opt.swift */; };
+		98C2D54825B7D01000A1BD3E /* HTTPAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D54725B7D01000A1BD3E /* HTTPAdapter.swift */; };
+		98C2D54D25B7D04200A1BD3E /* HTTPAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D54C25B7D04200A1BD3E /* HTTPAuthentication.swift */; };
+		98C2D55225B7D07F00A1BD3E /* ConnectSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D55125B7D07F00A1BD3E /* ConnectSession.swift */; };
+		98C2D55725B807AA00A1BD3E /* Tunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D55625B807AA00A1BD3E /* Tunnel.swift */; };
+		98C2D5A225B81BC300A1BD3E /* TCPStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59225B81BC300A1BD3E /* TCPStack.swift */; };
+		98C2D5A325B81BC300A1BD3E /* TUNInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59325B81BC300A1BD3E /* TUNInterface.swift */; };
+		98C2D5A425B81BC300A1BD3E /* IPStackProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59425B81BC300A1BD3E /* IPStackProtocol.swift */; };
+		98C2D5A525B81BC300A1BD3E /* UDPDirectStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59525B81BC300A1BD3E /* UDPDirectStack.swift */; };
+		98C2D5A625B81BC300A1BD3E /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59625B81BC300A1BD3E /* Router.swift */; };
+		98C2D5A725B81BC300A1BD3E /* DNSMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59825B81BC300A1BD3E /* DNSMessage.swift */; };
+		98C2D5A825B81BC300A1BD3E /* DNSSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59925B81BC300A1BD3E /* DNSSession.swift */; };
+		98C2D5A925B81BC300A1BD3E /* DNSServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59A25B81BC300A1BD3E /* DNSServer.swift */; };
+		98C2D5AA25B81BC300A1BD3E /* DNSResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59B25B81BC300A1BD3E /* DNSResolver.swift */; };
+		98C2D5AB25B81BC300A1BD3E /* DNSEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59C25B81BC300A1BD3E /* DNSEnums.swift */; };
+		98C2D5AC25B81BC300A1BD3E /* PacketProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59E25B81BC300A1BD3E /* PacketProtocolParser.swift */; };
+		98C2D5AD25B81BC300A1BD3E /* IPPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D59F25B81BC300A1BD3E /* IPPacket.swift */; };
+		98C2D5AE25B81BC300A1BD3E /* IPMutablePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D5A025B81BC300A1BD3E /* IPMutablePacket.swift */; };
+		98C2D5AF25B81BC300A1BD3E /* TCPMutablePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D5A125B81BC300A1BD3E /* TCPMutablePacket.swift */; };
 		98C3157D25B516CC00B487DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C3157C25B516CC00B487DE /* AppDelegate.swift */; };
 		98C3157F25B516CC00B487DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C3157E25B516CC00B487DE /* SceneDelegate.swift */; };
 		98C3158125B516CC00B487DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C3158025B516CC00B487DE /* ViewController.swift */; };
@@ -44,6 +66,28 @@
 
 /* Begin PBXFileReference section */
 		8144EAC9FC4BBC7C134A9AD9 /* Pods-proxyDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proxyDemo.release.xcconfig"; path = "Target Support Files/Pods-proxyDemo/Pods-proxyDemo.release.xcconfig"; sourceTree = "<group>"; };
+		98C2D52E25B7C19800A1BD3E /* HTTPStreamScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStreamScanner.swift; sourceTree = "<group>"; };
+		98C2D53425B7C2AF00A1BD3E /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
+		98C2D53C25B7C36600A1BD3E /* HTTPURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPURL.swift; sourceTree = "<group>"; };
+		98C2D54125B7C99E00A1BD3E /* Opt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Opt.swift; sourceTree = "<group>"; };
+		98C2D54725B7D01000A1BD3E /* HTTPAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPAdapter.swift; sourceTree = "<group>"; };
+		98C2D54C25B7D04200A1BD3E /* HTTPAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPAuthentication.swift; sourceTree = "<group>"; };
+		98C2D55125B7D07F00A1BD3E /* ConnectSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectSession.swift; sourceTree = "<group>"; };
+		98C2D55625B807AA00A1BD3E /* Tunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tunnel.swift; sourceTree = "<group>"; };
+		98C2D59225B81BC300A1BD3E /* TCPStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPStack.swift; sourceTree = "<group>"; };
+		98C2D59325B81BC300A1BD3E /* TUNInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TUNInterface.swift; sourceTree = "<group>"; };
+		98C2D59425B81BC300A1BD3E /* IPStackProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPStackProtocol.swift; sourceTree = "<group>"; };
+		98C2D59525B81BC300A1BD3E /* UDPDirectStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPDirectStack.swift; sourceTree = "<group>"; };
+		98C2D59625B81BC300A1BD3E /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		98C2D59825B81BC300A1BD3E /* DNSMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNSMessage.swift; sourceTree = "<group>"; };
+		98C2D59925B81BC300A1BD3E /* DNSSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNSSession.swift; sourceTree = "<group>"; };
+		98C2D59A25B81BC300A1BD3E /* DNSServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNSServer.swift; sourceTree = "<group>"; };
+		98C2D59B25B81BC300A1BD3E /* DNSResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNSResolver.swift; sourceTree = "<group>"; };
+		98C2D59C25B81BC300A1BD3E /* DNSEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNSEnums.swift; sourceTree = "<group>"; };
+		98C2D59E25B81BC300A1BD3E /* PacketProtocolParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacketProtocolParser.swift; sourceTree = "<group>"; };
+		98C2D59F25B81BC300A1BD3E /* IPPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPPacket.swift; sourceTree = "<group>"; };
+		98C2D5A025B81BC300A1BD3E /* IPMutablePacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPMutablePacket.swift; sourceTree = "<group>"; };
+		98C2D5A125B81BC300A1BD3E /* TCPMutablePacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPMutablePacket.swift; sourceTree = "<group>"; };
 		98C3157925B516CC00B487DE /* proxyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = proxyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98C3157C25B516CC00B487DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98C3157E25B516CC00B487DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +148,60 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		98C2D53325B7C27B00A1BD3E /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				98C2D55125B7D07F00A1BD3E /* ConnectSession.swift */,
+				98C2D53425B7C2AF00A1BD3E /* HTTPHeader.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		98C2D54625B7CFFD00A1BD3E /* Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				98C2D54725B7D01000A1BD3E /* HTTPAdapter.swift */,
+			);
+			path = Adapter;
+			sourceTree = "<group>";
+		};
+		98C2D59125B81BC300A1BD3E /* IPStack */ = {
+			isa = PBXGroup;
+			children = (
+				98C2D59225B81BC300A1BD3E /* TCPStack.swift */,
+				98C2D59325B81BC300A1BD3E /* TUNInterface.swift */,
+				98C2D59425B81BC300A1BD3E /* IPStackProtocol.swift */,
+				98C2D59525B81BC300A1BD3E /* UDPDirectStack.swift */,
+				98C2D59625B81BC300A1BD3E /* Router.swift */,
+				98C2D59725B81BC300A1BD3E /* DNS */,
+				98C2D59D25B81BC300A1BD3E /* Packet */,
+			);
+			path = IPStack;
+			sourceTree = "<group>";
+		};
+		98C2D59725B81BC300A1BD3E /* DNS */ = {
+			isa = PBXGroup;
+			children = (
+				98C2D59825B81BC300A1BD3E /* DNSMessage.swift */,
+				98C2D59925B81BC300A1BD3E /* DNSSession.swift */,
+				98C2D59A25B81BC300A1BD3E /* DNSServer.swift */,
+				98C2D59B25B81BC300A1BD3E /* DNSResolver.swift */,
+				98C2D59C25B81BC300A1BD3E /* DNSEnums.swift */,
+			);
+			path = DNS;
+			sourceTree = "<group>";
+		};
+		98C2D59D25B81BC300A1BD3E /* Packet */ = {
+			isa = PBXGroup;
+			children = (
+				98C2D59E25B81BC300A1BD3E /* PacketProtocolParser.swift */,
+				98C2D59F25B81BC300A1BD3E /* IPPacket.swift */,
+				98C2D5A025B81BC300A1BD3E /* IPMutablePacket.swift */,
+				98C2D5A125B81BC300A1BD3E /* TCPMutablePacket.swift */,
+			);
+			path = Packet;
+			sourceTree = "<group>";
+		};
 		98C3157025B516CC00B487DE = {
 			isa = PBXGroup;
 			children = (
@@ -129,12 +227,16 @@
 		98C3157B25B516CC00B487DE /* proxyDemo */ = {
 			isa = PBXGroup;
 			children = (
+				98C2D59125B81BC300A1BD3E /* IPStack */,
+				98C2D54625B7CFFD00A1BD3E /* Adapter */,
+				98C2D53325B7C27B00A1BD3E /* Entity */,
 				98C315D125B5220B00B487DE /* Proxy */,
 				98C315BF25B5210A00B487DE /* Util */,
 				98C3157C25B516CC00B487DE /* AppDelegate.swift */,
 				98C3157E25B516CC00B487DE /* SceneDelegate.swift */,
 				98C3158025B516CC00B487DE /* ViewController.swift */,
 				98C315DA25B522C600B487DE /* Bridging-Header.h */,
+				98C2D55625B807AA00A1BD3E /* Tunnel.swift */,
 				98C3158225B516CC00B487DE /* Main.storyboard */,
 				98C3158525B516D100B487DE /* Assets.xcassets */,
 				98C3158725B516D100B487DE /* LaunchScreen.storyboard */,
@@ -164,6 +266,10 @@
 		98C315BF25B5210A00B487DE /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				98C2D54C25B7D04200A1BD3E /* HTTPAuthentication.swift */,
+				98C2D54125B7C99E00A1BD3E /* Opt.swift */,
+				98C2D52E25B7C19800A1BD3E /* HTTPStreamScanner.swift */,
+				98C2D53C25B7C36600A1BD3E /* HTTPURL.swift */,
 				98C315F125B5796000B487DE /* Utils.swift */,
 				98C315E125B5272F00B487DE /* UInt128.swift */,
 				98C315C025B5211D00B487DE /* Port.swift */,
@@ -365,16 +471,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98C2D5A325B81BC300A1BD3E /* TUNInterface.swift in Sources */,
+				98C2D53525B7C2AF00A1BD3E /* HTTPHeader.swift in Sources */,
+				98C2D5AF25B81BC300A1BD3E /* TCPMutablePacket.swift in Sources */,
+				98C2D55225B7D07F00A1BD3E /* ConnectSession.swift in Sources */,
+				98C2D5AA25B81BC300A1BD3E /* DNSResolver.swift in Sources */,
 				98C315ED25B5744100B487DE /* HTTPProxyGCDAsyncSocket.swift in Sources */,
 				98C315CD25B521DD00B487DE /* Address.swift in Sources */,
+				98C2D5A425B81BC300A1BD3E /* IPStackProtocol.swift in Sources */,
+				98C2D54D25B7D04200A1BD3E /* HTTPAuthentication.swift in Sources */,
+				98C2D5A925B81BC300A1BD3E /* DNSServer.swift in Sources */,
 				98C315B825B5208F00B487DE /* Proxy.swift in Sources */,
 				98C3158125B516CC00B487DE /* ViewController.swift in Sources */,
+				98C2D54225B7C99E00A1BD3E /* Opt.swift in Sources */,
 				98C315E225B5272F00B487DE /* UInt128.swift in Sources */,
 				98C315F225B5796000B487DE /* Utils.swift in Sources */,
+				98C2D5A725B81BC300A1BD3E /* DNSMessage.swift in Sources */,
+				98C2D5A825B81BC300A1BD3E /* DNSSession.swift in Sources */,
+				98C2D54825B7D01000A1BD3E /* HTTPAdapter.swift in Sources */,
 				98C315D325B5224700B487DE /* ProxyServer.swift in Sources */,
+				98C2D53D25B7C36600A1BD3E /* HTTPURL.swift in Sources */,
+				98C2D5A525B81BC300A1BD3E /* UDPDirectStack.swift in Sources */,
+				98C2D55725B807AA00A1BD3E /* Tunnel.swift in Sources */,
 				98C3157D25B516CC00B487DE /* AppDelegate.swift in Sources */,
+				98C2D5AC25B81BC300A1BD3E /* PacketProtocolParser.swift in Sources */,
+				98C2D5AD25B81BC300A1BD3E /* IPPacket.swift in Sources */,
 				98C3157F25B516CC00B487DE /* SceneDelegate.swift in Sources */,
+				98C2D5AB25B81BC300A1BD3E /* DNSEnums.swift in Sources */,
+				98C2D5A625B81BC300A1BD3E /* Router.swift in Sources */,
+				98C2D52F25B7C19800A1BD3E /* HTTPStreamScanner.swift in Sources */,
+				98C2D5A225B81BC300A1BD3E /* TCPStack.swift in Sources */,
 				98C315C125B5211D00B487DE /* Port.swift in Sources */,
+				98C2D5AE25B81BC300A1BD3E /* IPMutablePacket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
