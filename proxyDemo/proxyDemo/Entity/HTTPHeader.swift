@@ -137,10 +137,33 @@ class HTTPHeader {
         return nil
     }
 
+    open func rewriteToRelativePath() {
+        if path[path.startIndex] != "/" {
+            guard let rewrotePath = URL.matchRelativePath(path) else {
+                return
+            }
+            path = rewrotePath
+        }
+    }
+
     open func removeProxyHeader() {
         let ProxyHeader = ["Proxy-Authenticate", "Proxy-Authorization", "Proxy-Connection"]
         for header in ProxyHeader {
             _ = removeHeader(header)
+        }
+    }
+
+    struct URL {
+        // swiftlint:disable:next force_try
+        static let relativePathRegex = try! NSRegularExpression(pattern: "http.?:\\/\\/.*?(\\/.*)", options: NSRegularExpression.Options.caseInsensitive)
+
+        static func matchRelativePath(_ url: String) -> String? {
+            if let result = relativePathRegex.firstMatch(in: url, options: NSRegularExpression.MatchingOptions(), range: NSRange(location: 0, length: url.count)) {
+
+                return (url as NSString).substring(with: result.range(at: 1))
+            } else {
+                return nil
+            }
         }
     }
 }

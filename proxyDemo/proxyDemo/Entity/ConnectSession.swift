@@ -46,23 +46,24 @@ public final class ConnectSession {
                 return ip
             }
             
-            guard let dnsServer = DNSServer.currentServer else {
+//            guard let dnsServer = DNSServer.currentServer else {
+//                return ip
+//            }
+            
+            guard let address = Address(fromString: ip) else {
                 return ip
             }
             
-            guard let address = IPAddress(fromString: ip) else {
-                return ip
-            }
+//            guard dnsServer.isFakeIP(address) else {
+//                return ip
+//            }
+//
+//            guard let session = dnsServer.lookupFakeIP(address) else {
+//                return ip
+//            }
             
-            guard dnsServer.isFakeIP(address) else {
-                return ip
-            }
-            
-            guard let session = dnsServer.lookupFakeIP(address) else {
-                return ip
-            }
-            
-            return session.realIP?.presentation ?? ""
+//            return session.realIP?.presentation ?? ""
+            return ip
         }
         }()
     
@@ -101,32 +102,32 @@ public final class ConnectSession {
     
     fileprivate func lookupRealIP() -> Bool {
         /// If custom DNS server is set up.
-        guard let dnsServer = DNSServer.currentServer else {
-            return true
-        }
-        
-        // Only IPv4 is supported as of now.
-        guard isIPv4() else {
-            return true
-        }
-        
-        let address = Address(fromString: requestedHost)!
-        guard dnsServer.isFakeIP(address) else {
-            return true
-        }
-        
-        // Look up fake IP reversely should never fail.
-        guard let session = dnsServer.lookupFakeIP(address) else {
-            return false
-        }
-        
-        host = session.requestMessage.queries[0].name
-        ipAddress = session.realIP?.presentation ?? ""
-//        matchedRule = session.matchedRule
-        
-        if session.countryCode != nil {
-            country = session.countryCode!
-        }
+//        guard let dnsServer = DNSServer.currentServer else {
+//            return true
+//        }
+//
+//        // Only IPv4 is supported as of now.
+//        guard isIPv4() else {
+//            return true
+//        }
+//
+//        let address = Address(fromString: requestedHost)!
+//        guard dnsServer.isFakeIP(address) else {
+//            return true
+//        }
+//
+//        // Look up fake IP reversely should never fail.
+//        guard let session = dnsServer.lookupFakeIP(address) else {
+//            return false
+//        }
+//
+//        host = session.requestMessage.queries[0].name
+//        ipAddress = session.realIP?.presentation ?? ""
+////        matchedRule = session.matchedRule
+//
+//        if session.countryCode != nil {
+//            country = session.countryCode!
+//        }
         return true
     }
     

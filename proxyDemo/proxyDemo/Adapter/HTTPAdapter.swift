@@ -49,6 +49,7 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
         self.serverHost = serverHost
         self.serverPort = serverPort
         self.auth = auth
+        adapterSocket = GCDAsyncSocket.init(delegate: nil, delegateQueue: DispatchQueue.main)
         secured = false
     }
 
@@ -60,9 +61,9 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
 
         do {
             internalStatus = .connecting
-            try adapterSocket.connect(toHost: serverHost, onPort: UInt16(serverPort), withTimeout: -1)
             adapterSocket.delegate = self
-
+            print("ip: \(session.ipAddress) \r\nport:\(serverPort)")
+            try adapterSocket.connect(toHost: session.ipAddress, onPort: UInt16(serverPort), withTimeout: -1)
             if secured {
                 startTLSWith(settings: nil)
             }
@@ -127,6 +128,10 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
         if internalStatus == .forwarding {
             delegate?.readData()
         }
+    }
+
+    func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
+        print("adapter err:\(err?.localizedDescription)")
     }
 
 
