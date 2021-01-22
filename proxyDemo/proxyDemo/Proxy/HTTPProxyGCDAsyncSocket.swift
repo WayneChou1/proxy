@@ -68,6 +68,7 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
     private var readStatus: HTTPProxyReadStatus = .invalid
     private var writeStatus: HTTPProxyWriteStatus = .invalid
     private var currentHeader: HTTPHeader!
+    private var currentContent: Data!
 
     public var socket: GCDAsyncSocket!
     public var adapter: HTTPAdapter!
@@ -80,7 +81,7 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
     func openSocket() {
         self.socket.delegate = self
         readStatus = .readingFirstHeader
-        socket.readData(to: Utils.HTTPData.DoubleCRLF, withTimeout: -1, tag: 1)
+        socket.readData(to: Utils.HTTPData.DoubleCRLF, withTimeout: -1, tag: 0)
     }
 
     func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
@@ -110,9 +111,11 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
             isConnectCommand = currentHeader.isConnect
 
             if !isConnectCommand {
-                readStatus = .pendingFirstHeader
+//                readStatus = .pendingFirstHeader
+                currentContent = data
             } else {
                 readStatus = .readingContent
+                sock.write(Utils.HTTPData.ConnectSuccessResponse, withTimeout: -1, tag: tag)
             }
 
             let session = ConnectSession(host: destinationHost!, port: destinationPort!)
@@ -124,19 +127,17 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
             currentHeader.rewriteToRelativePath()
 
 //            delegate?.didRead(data: currentHeader.toData(), from: self)
-        case (.readingContent, .content(let content)): break
+        case (.readingContent, .content(let content)):
 //            delegate?.didRead(data: content, from: self)
+//            didBecomeReadyToForwardWith(socket: self.adapter)
+            currentContent = content
         default:
             return
         }
     }
 
     func socket(_ sock: GCDAsyncSocket, didWriteDataWithTag tag: Int) {
-
-    }
-
-    func socket(_ sock: GCDAsyncSocket, didAcceptNewSocket newSocket: GCDAsyncSocket) {
-
+        sock.readData(withTimeout: -1, tag: tag)
     }
 
     func didReceive(session:ConnectSession) {
@@ -165,16 +166,16 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
         if isConnectCommand {
             writeStatus = .sendingConnectResponse
 //            socket.write(data: Utils.HTTPData.ConnectSuccessResponse)
-            self.socket.write(Utils.HTTPData.ConnectSuccessResponse, withTimeout: -1, tag: 1)
+            self.socket.write(Utils.HTTPData.ConnectSuccessResponse, withTimeout: -1, tag: 0)
         } else {
             writeStatus = .forwarding
             self.readData()
-            self.adapter.adapterSocket.readData(withTimeout: -1, tag: 1)
+            self.adapter.adapterSocket.readData(withTimeout: -1, tag: 0)
         }
     }
 
     func didRead(data: Data, from: HTTPAdapter) {
-
+        self.socket.write(data, withTimeout: -1, tag: 0)
     }
 
     func didWrite(data: Data, from: HTTPAdapter) {
@@ -183,6 +184,11 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
 
     func readData() {
 
+    }
+
+    func didConnect() {
+        self.adapter.adapterSocket.write(currentContent, withTimeout: -1, tag: 0)
+        self.adapter.adapterSocket.readData(withTimeout: -1, tag: 0)
     }
 
 }

@@ -11,6 +11,7 @@ protocol AdapterDelegate {
     func didBecomeReadyToForwardWith(socket:HTTPAdapter)
     func didRead(data:Data,from:HTTPAdapter)
     func didWrite(data:Data,from:HTTPAdapter)
+    func didConnect()
     func readData()
 }
 
@@ -43,14 +44,18 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
 
     var adapterSocket: GCDAsyncSocket!
 
-    var delegate:AdapterDelegate?
+    var delegate: AdapterDelegate?
+
+    deinit {
+        print("HttpAdapter deinit")
+    }
 
     public init(serverHost: String, serverPort: Int, auth: HTTPAuthentication?) {
         self.serverHost = serverHost
         self.serverPort = serverPort
         self.auth = auth
         adapterSocket = GCDAsyncSocket.init(delegate: nil, delegateQueue: DispatchQueue.main)
-        secured = false
+        secured = true
     }
 
     public func openSocketWith(session: ConnectSession) {
@@ -60,12 +65,12 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
 //        }
 
         do {
-            internalStatus = .connecting
+            internalStatus = .forwarding
             adapterSocket.delegate = self
             print("ip: \(session.ipAddress) \r\nport:\(serverPort)")
             try adapterSocket.connect(toHost: session.ipAddress, onPort: UInt16(serverPort), withTimeout: -1)
             if secured {
-                startTLSWith(settings: nil)
+//                startTLSWith(settings: nil)
             }
         } catch {}
         self.session = session
@@ -90,28 +95,32 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
     }
 
     func socket(_ sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
-        guard let url = URL(string: "\(session.host):\(session.port)") else {
-            return
-        }
-        let message = CFHTTPMessageCreateRequest(kCFAllocatorDefault, "CONNECT" as CFString, url as CFURL, kCFHTTPVersion1_1).takeRetainedValue()
-        if let authData = auth {
-            CFHTTPMessageSetHeaderFieldValue(message, "Proxy-Authorization" as CFString, authData.authString() as CFString?)
-        }
-        CFHTTPMessageSetHeaderFieldValue(message, "Host" as CFString, "\(session.host):\(session.port)" as CFString?)
-        CFHTTPMessageSetHeaderFieldValue(message, "Content-Length" as CFString, "0" as CFString?)
-
-        guard let requestData = CFHTTPMessageCopySerializedMessage(message)?.takeRetainedValue() else {
-            return
-        }
-
-        internalStatus = .readingResponse
-//        adapterSocket.write(data: requestData as Data)
-        adapterSocket.write(requestData as Data, withTimeout: -1, tag: 0)
-        adapterSocket.readData(to: Utils.HTTPData.DoubleCRLF, withTimeout: -1, tag: 1)
+//        guard let url = URL(string: "\(session.host):\(session.port)") else {
+//            return
+//        }
+//        let message = CFHTTPMessageCreateRequest(kCFAllocatorDefault, "CONNECT" as CFString, url as CFURL, kCFHTTPVersion1_1).takeRetainedValue()
+//        if let authData = auth {
+//            CFHTTPMessageSetHeaderFieldValue(message, "Proxy-Authorization" as CFString, authData.authString() as CFString?)
+//        }
+//        CFHTTPMessageSetHeaderFieldValue(message, "Host" as CFString, "\(session.host):\(session.port)" as CFString?)
+//        CFHTTPMessageSetHeaderFieldValue(message, "Content-Length" as CFString, "0" as CFString?)
+//
+//        guard let requestData = CFHTTPMessageCopySerializedMessage(message)?.takeRetainedValue() else {
+//            return
+//        }
+//
+//        print("adapter write data:\(String.init(data: requestData as Data, encoding: String.Encoding.utf8))")
+//
+//        internalStatus = .readingResponse
+////        adapterSocket.write(data: requestData as Data)
+//        adapterSocket.write(requestData as Data, withTimeout: -1, tag: 0)
+//        adapterSocket.readData(to: Utils.HTTPData.DoubleCRLF, withTimeout: -1, tag: 1)
 //        socket.readDataTo(data: Utils.HTTPData.DoubleCRLF)
+        delegate?.didConnect()
     }
 
     func socket(_ sock: GCDAsyncSocket, didRead data: Data, withTag tag: Int) {
+        print("adapter read data:\(String.init(data: data, encoding: String.Encoding.utf8))")
         switch internalStatus {
         case .readingResponse:
             internalStatus = .forwarding
@@ -134,7 +143,9 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
         print("adapter err:\(err?.localizedDescription)")
     }
 
-
+    func socketDidSecure(_ sock: GCDAsyncSocket) {
+        delegate?.didConnect()
+    }
 
 //    override public func didConnectWith(socket: RawTCPSocketProtocol) {
 //        super.didConnectWith(socket: socket)

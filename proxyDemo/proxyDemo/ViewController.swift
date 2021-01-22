@@ -47,11 +47,14 @@ class ViewController: UIViewController {
     }
 
     func request() {
-        sleep(3)
-        let request = sessionManager.request("https://www.baidu.com/").response { (response) in
+        sleep(1)
+        sessionManager.request("http://www.10qianwan.com/").response { (response) in
             print("response:\(response)")
         }
     }
 
+    @IBAction func requestBtnOnClick(_ sender: UIButton) {
+        request()
+    }
 }
 

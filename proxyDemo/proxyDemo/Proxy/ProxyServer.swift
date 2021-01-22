@@ -14,7 +14,6 @@ class ProxyServer: NSObject,GCDAsyncSocketDelegate {
     var proxy: Proxy!
     var proxySocket: HTTPProxyGCDAsyncSocket!
 
-
     init(proxy:Proxy) {
         super.init()
         self.proxy = proxy
