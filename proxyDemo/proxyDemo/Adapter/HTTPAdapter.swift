@@ -50,12 +50,12 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
         print("HttpAdapter deinit")
     }
 
-    public init(serverHost: String, serverPort: Int, auth: HTTPAuthentication?) {
+    public init(serverHost: String, serverPort: Int,secured: Bool, auth: HTTPAuthentication?) {
         self.serverHost = serverHost
         self.serverPort = serverPort
         self.auth = auth
+        self.secured = secured
         adapterSocket = GCDAsyncSocket.init(delegate: nil, delegateQueue: DispatchQueue.main)
-        secured = true
     }
 
     public func openSocketWith(session: ConnectSession) {
@@ -63,7 +63,6 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
 //        guard !isCancelled else {
 //            return
 //        }
-
         do {
             internalStatus = .forwarding
             adapterSocket.delegate = self
@@ -116,21 +115,27 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
 //        adapterSocket.write(requestData as Data, withTimeout: -1, tag: 0)
 //        adapterSocket.readData(to: Utils.HTTPData.DoubleCRLF, withTimeout: -1, tag: 1)
 //        socket.readDataTo(data: Utils.HTTPData.DoubleCRLF)
-        delegate?.didConnect()
+        print("adapter didConnectToHost")
+//        if !secured {
+            delegate?.didConnect()
+//        }
     }
 
     func socket(_ sock: GCDAsyncSocket, didRead data: Data, withTag tag: Int) {
-        print("adapter read data:\(String.init(data: data, encoding: String.Encoding.utf8))")
-        switch internalStatus {
-        case .readingResponse:
-            internalStatus = .forwarding
-            delegate?.didBecomeReadyToForwardWith(socket: self)
+        print("adapter read data:\(String(describing: String.init(data: data, encoding: String.Encoding.utf8)))")
+        sock.readData(withTimeout: -1, tag: 0)
+//        switch internalStatus {
+//        case .readingResponse:
+//            internalStatus = .forwarding
+//            delegate?.didBecomeReadyToForwardWith(socket: self)
+//
+//        case .forwarding:
+//            delegate?.didRead(data: data, from: self)
+//        default:
+//            return
+//        }
+        delegate?.didRead(data: data, from: self)
 
-        case .forwarding:
-            delegate?.didRead(data: data, from: self)
-        default:
-            return
-        }
     }
 
     func socket(_ sock: GCDAsyncSocket, didWriteDataWithTag tag: Int) {
@@ -144,7 +149,8 @@ class HTTPAdapter:NSObject, GCDAsyncSocketDelegate {
     }
 
     func socketDidSecure(_ sock: GCDAsyncSocket) {
-        delegate?.didConnect()
+        print("adapter socketDidSecure")
+//        delegate?.didConnect()
     }
 
 //    override public func didConnectWith(socket: RawTCPSocketProtocol) {

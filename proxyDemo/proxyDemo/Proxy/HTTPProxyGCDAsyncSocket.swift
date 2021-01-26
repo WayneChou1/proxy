@@ -82,6 +82,7 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
         self.socket.delegate = self
         readStatus = .readingFirstHeader
         socket.readData(to: Utils.HTTPData.DoubleCRLF, withTimeout: -1, tag: 0)
+//        socket.readData(withTimeout: -1, tag: 0)
     }
 
     func socketDidDisconnect(_ sock: GCDAsyncSocket, withError err: Error?) {
@@ -90,7 +91,8 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
 
     func socket(_ sock: GCDAsyncSocket, didRead data: Data, withTag tag: Int) {
         let str = String.init(data: data, encoding: String.Encoding.utf8)
-        print("HTTPProxyGCDAsyncSocket Read Data:\(str)")
+        print("HTTPProxyGCDAsyncSocket Read Data:\(str) length:\(data.count)")
+        sock.readData(withTimeout: -1, tag: 0)
 
         let result: HTTPStreamScanner.Result
         do {
@@ -115,12 +117,11 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
                 currentContent = data
             } else {
                 readStatus = .readingContent
-                sock.write(Utils.HTTPData.ConnectSuccessResponse, withTimeout: -1, tag: tag)
+                sock.write(Utils.HTTPData.ConnectSuccessResponse, withTimeout: -1, tag: 0)
             }
-
             let session = ConnectSession(host: destinationHost!, port: destinationPort!)
-//            delegate?.didReceive(session: session!, from: self)
             didReceive(session: session!)
+
         case (.readingHeader, .header(let header)):
             currentHeader = header
             currentHeader.removeProxyHeader()
@@ -130,7 +131,21 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
         case (.readingContent, .content(let content)):
 //            delegate?.didRead(data: content, from: self)
 //            didBecomeReadyToForwardWith(socket: self.adapter)
+//            if var appendContend = currentContent {
+//                if currentHeader.contentLength > appendContend.count {
+//                    appendContend.append(content)
+//                }else if currentHeader.contentLength == appendContend.count {
+////                    let session = ConnectSession(host: destinationHost!, port: destinationPort!)
+////                    didReceive(session: session!)
+//                }
+//            }else{
+//                currentContent = content
+//            }
             currentContent = content
+
+            if (adapter != nil) {
+                adapter.adapterSocket.write(currentContent, withTimeout: -1, tag: 0)
+            }
         default:
             return
         }
@@ -157,7 +172,7 @@ class HTTPProxyGCDAsyncSocket: NSObject,GCDAsyncSocketDelegate, AdapterDelegate 
     }
 
     fileprivate func openAdapter(for session: ConnectSession) {
-        adapter = HTTPAdapter.init(serverHost: session.host, serverPort: session.port, auth: nil)
+        adapter = HTTPAdapter.init(serverHost: session.host, serverPort: session.port,secured:self.isConnectCommand ,auth: nil)
         adapter.delegate = self
         adapter.openSocketWith(session: session)
     }

@@ -48,7 +48,9 @@ class ViewController: UIViewController {
 
     func request() {
         sleep(1)
-        sessionManager.request("http://www.10qianwan.com/").response { (response) in
+//        let url = "http://www.10qianwan.com/"
+        let url = "https://www.baidu.com"
+        sessionManager.request(url).response { (response) in
             print("response:\(response)")
         }
     }
